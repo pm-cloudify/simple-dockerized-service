@@ -1,0 +1,21 @@
+{
+  "name": "service",
+  "version": "1.0.0",
+  "description": "A simple service",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "build": "esbuild index.js --bundle --minify --outfile=dist/bundle.js --external:node:*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-basic-auth": "^1.2.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.9"
+  }
+}
