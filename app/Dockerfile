@@ -3,12 +3,12 @@ FROM node:22.18.0-slim AS builder
 
 WORKDIR /app
 
-COPY ./app/package.json .
-COPY ./app/package-lock.json .
+COPY ./package.json .
+COPY ./package-lock.json .
 
 RUN npm ci
 
-COPY ./app .
+COPY . .
 
 RUN npm run build
 
