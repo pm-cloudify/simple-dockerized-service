@@ -2,7 +2,7 @@ import express from "express";
 import basicAuth from "express-basic-auth";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const users = {};
 if (process.env?.USERNAME && process.env?.PASSWORD)
