@@ -13,7 +13,7 @@ COPY . .
 RUN npm run build
 
 # used to create a web server for app
-FROM nginx:stable-alpine-slim
+FROM nginx:stable-alpine
 
 COPY --from=builder /app/dist/ /var/www/html
 
