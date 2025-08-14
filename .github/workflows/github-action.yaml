@@ -1,0 +1,14 @@
+name: Dockerize and Deploy
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  Dockerize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Image
+        shell: bash
+        run: |
+          ./build-server.sh
