@@ -2,6 +2,12 @@
 
 docker build -t my-node-service ./service 
 
+rm -r ./out/server-image.tar || true
+
+mkdir -p ./out
+
 docker save --output=./out/server-image.tar my-node-service:latest
 
-tar tf ./out/server-image
+ls -lh ./out/server-image.tar
+
+tar tf ./out/server-image.tar
