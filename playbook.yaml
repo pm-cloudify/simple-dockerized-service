@@ -1,0 +1,7 @@
+- hosts: deploy
+  become: yes
+  roles:
+    - role: setup_server
+      tags: config
+    - role: deploy_app
+      tags: deploy

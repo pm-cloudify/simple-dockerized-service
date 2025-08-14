@@ -5,7 +5,9 @@ on:
     branches: ["main"]
 
 jobs:
-  Dockerize:
+  # since I do not push it to a docker registry,
+  # I just create a job to do this.
+  Dockerize-and-Deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,3 +22,24 @@ jobs:
           docker save --output=./out/server-image.tar my-node-service:latest
           ls -lh ./out/server-image.tar
           tar tf ./out/server-image.tar
+
+      - name: Setup SSH
+        shell: bash
+        run: |
+          mkdir -p /home/runner/.ssh/
+          touch id_rsa.pem
+          echo -e "${{secrets.SSH_KEY}}" > id_rsa.pem
+          chmod 600 id_rsa.pem
+          echo -e "${{secrets.ProductionHost}}" > inventory.ini
+      - name: Install Ansible
+        shell: bash
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+
+      - name: Deploy with Ansible
+        env:
+          ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
+          ANSIBLE_HOST_KEY_CHECKING: False
+        run: |
+          ansible-playbook -i inventory.ini playbook.yaml --private-key id_rsa.pem -u ${{ secrets.ANSIBLE_USER }} --tags deploy

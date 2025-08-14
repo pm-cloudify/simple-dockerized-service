@@ -1,2 +1,4 @@
 # ignore output images
 out
+*inventory
+*inventory.ini
