@@ -8,7 +8,10 @@ jobs:
   Dockerize:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Build Image
+        shell: bash
         run: |
           ls -ah
           docker build -t my-node-service ./service 
