@@ -1,22 +1,23 @@
 # used to build the app
-FROM node:22.18.0-slim AS builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-COPY ./package.json .
-COPY ./package-lock.json .
-
+COPY ./package*.json .
 RUN npm ci
 
 COPY . .
-
 RUN npm run build
 
+RUN npm prune --production
+
 # used to create a web server for app
-FROM node:22.18.0-alpine
+FROM node:22-alpine
 
 WORKDIR /opt/nodejs-server/
 
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/dist/ .
 
-RUN node bundle.js
+CMD [ "node", "bundle.js" ]

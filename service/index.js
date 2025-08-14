@@ -1,5 +1,5 @@
-import express from "express";
-import basicAuth from "express-basic-auth";
+const express = require("express");
+const basicAuth = require("express-basic-auth");
 
 const app = express();
 const port = process.env.PORT || 3000;
