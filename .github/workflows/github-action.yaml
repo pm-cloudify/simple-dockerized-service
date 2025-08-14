@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build Image
-        shell: bash
         run: |
           ls -ah
           docker build -t my-node-service ./service 
