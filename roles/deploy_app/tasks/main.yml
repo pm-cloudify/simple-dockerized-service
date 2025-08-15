@@ -24,8 +24,10 @@
 - name: Down Previous Container
   community.docker.docker_container:
     name: "{{ app_name }}"
-    state: stopped
+    state: absent
     force_kill: true
+    keep_volumes: false
+    auto_remove: true
   register: container_removal_result
 
 - name: Container Removal Result
