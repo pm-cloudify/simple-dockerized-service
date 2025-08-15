@@ -44,7 +44,7 @@
     restart_policy: always
     # cpus: 0.5
     env:
-      PORT: 80
+      PORT: "80"
 
 - name: Clean Up
   ansible.builtin.file:
