@@ -1,2 +1,28 @@
 ---
 # tasks file for deploy_app
+
+- name: Create Root Dir
+  ansible.builtin.file:
+    path: "{{ master_image_root_dir }}"
+    state: directory
+    mode: "0644"
+    owner: root
+    group: root
+
+- name: Upload Image
+  ansible.builtin.copy:
+    src: "{{ master_image_root_dir }}/server-image.tar"
+    dest: "{{ image_root_dir }}/server-image.tar"
+    mode: "0644"
+    owner: root
+    group: root
+
+- name: Load Image
+  community.docker.docker_image_load:
+    path: "{{ image_root_dir }}/server-image.tar"
+
+# - name: Down Previous Container
+
+# - name: Run New Image
+
+# - name: Clean Up

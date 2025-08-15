@@ -1,2 +1,5 @@
 ---
 # vars file for deploy_app
+master_image_root_dir: ~/Documents/images
+image_root_dir: /opt/images
+app_name: nodejs-service
