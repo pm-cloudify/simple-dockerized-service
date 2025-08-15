@@ -3,7 +3,7 @@
 
 - name: Create Root Dir
   ansible.builtin.file:
-    path: "{{ master_image_root_dir }}"
+    path: "{{ image_root_dir }}"
     state: directory
     mode: "0644"
     owner: root
@@ -20,7 +20,6 @@
 - name: Load Image
   community.docker.docker_image_load:
     path: "{{ image_root_dir }}/server-image.tar"
-
 # - name: Down Previous Container
 
 # - name: Run New Image
