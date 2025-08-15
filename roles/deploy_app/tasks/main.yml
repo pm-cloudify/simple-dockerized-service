@@ -20,8 +20,31 @@
 - name: Load Image
   community.docker.docker_image_load:
     path: "{{ image_root_dir }}/server-image.tar"
-# - name: Down Previous Container
 
-# - name: Run New Image
+- name: Down Previous Container
+  community.docker.docker_container:
+    name: "{{ app_name }}"
+    state: stopped
+    force_kill: true
+  register: container_removal_result
 
-# - name: Clean Up
+- name: Container Removal Result
+  ansible.builtin.debug:
+    var: container_removal_result
+
+- name: Run New Image
+  community.docker.docker_container:
+    name: "{{ app_name }}"
+    image: "{{ app_name }}:latest"
+    state: started
+    ports:
+      - 83:80
+    restart_policy: always
+    # cpus: 0.5
+    env:
+      PORT: 80
+
+- name: Clean Up
+  ansible.builtin.file:
+    path: "{{ image_root_dir }}/server-image.tar"
+    state: absent
