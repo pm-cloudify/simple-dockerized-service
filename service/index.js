@@ -13,6 +13,10 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
+app.get("/new", (req, res) => {
+  res.send("New Test Feature");
+});
+
 app.get(
   "/secret",
   basicAuth({
