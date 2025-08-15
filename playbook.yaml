@@ -3,5 +3,9 @@
   roles:
     - role: setup_server
       tags: config
+      when:
+        - ansible_distribution == "Debian"
+        - ansible_distribution_release == "bookworm"
     - role: deploy_app
       tags: deploy
+  
